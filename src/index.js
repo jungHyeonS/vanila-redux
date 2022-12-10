@@ -13,17 +13,21 @@ const minus = document.getElementById("minus")
 const number = document.querySelector("span");
 
 
+const ADD = "ADD";
+const MINUS = "MINUS"
+
 
 //리듀서
 const countModifer = (count = 0,action) => {
   //리듀서만 데이터를 수정할수있다
-
-  if(action.type == "ADD"){
-    count++;
-  }else if(action.type == "MINUS"){
-    count--;
+  switch(action.type){
+    case ADD:
+      return count + 1;
+    case MINUS:
+      return count - 1;
+    default:
+      return count
   }
-  return count;
 }
 
 const countStore = createStore(countModifer);
@@ -36,5 +40,5 @@ const onChange = () => {
 //스토어 데이터 변화 감지
 countStore.subscribe(onChange)
 
-add.addEventListener("click",() => countStore.dispatch({type:"ADD"}))
-minus.addEventListener("click",()=> countStore.dispatch({type:"MINUS"}))
+add.addEventListener("click",() => countStore.dispatch({type:ADD}))
+minus.addEventListener("click",()=> countStore.dispatch({type:MINUS}))
