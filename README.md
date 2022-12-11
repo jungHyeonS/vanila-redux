@@ -1,6 +1,7 @@
 # Vanilla Redux
 
 ## Redux Basic
+Doucment : https://receptive-ping-b41.notion.site/redux-bfb6250dd376423e9c190c04875320bb<br/><br/>
 <b>state</b> : application 에서 변경되는 데이터<br/>
 <b>store</b> : 데이터의 저장소<br/>
 <b>reducer</b> : data를 Modify해주는 함수로 reducer 가 return하는것은 application에 있는 데이터가 된다<br/>
