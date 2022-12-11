@@ -1,44 +1,39 @@
-import { createStore } from "redux";
+import {createStore} from "redux"
+const form = document.querySelector("form")
+const input = document.querySelector("input");
+const ul = document.querySelector("ul")
 
 
-//state : application 변경되는 데이터
-//store : 데이터 저장소
-//reducer : data를 modify해주는 함수로 reducer가 return하는것을 application에 있는 데이터가 된다
-//action : redux에서 function을 부를때 쓰는 두번째 파라미터 혹은 argument로 reducer와 소통하기 위한 방법
-//Reducer에게 Action을 보내는 방법 : store.dispatch({key:value})
-//subscribe : store안에있는 데이터 변화 감지
+const ADD_TODO = "ADD_TODO"
+const DELETE_TODO = "DELETE_TODO"
 
-const add = document.getElementById("add")
-const minus = document.getElementById("minus")
-const number = document.querySelector("span");
-
-
-const ADD = "ADD";
-const MINUS = "MINUS"
-
-
-//리듀서
-const countModifer = (count = 0,action) => {
-  //리듀서만 데이터를 수정할수있다
+const reducer = (state = [],action) => {
   switch(action.type){
-    case ADD:
-      return count + 1;
-    case MINUS:
-      return count - 1;
+    case ADD_TODO:
+      return []
+    case DELETE_TODO:
+      return []
     default:
-      return count
+      return state 
   }
 }
+const store = createStore(reducer);
 
-const countStore = createStore(countModifer);
 
 
-const onChange = () => {
-  number.innerText = countStore.getState()
+
+const createTodo = toDo => {
+  const li = document.createElement("li");
+  li.innerText = toDo;
+  ul.appendChild(li);
 }
 
-//스토어 데이터 변화 감지
-countStore.subscribe(onChange)
+const onSubmit = e => {
+  e.preventDefault();
+  const toDo = input.value;
+  input.value = "";
+  // createTodo(toDo)
+  store.dispatch({type:ADD_TODO,text:toDo})
+}
 
-add.addEventListener("click",() => countStore.dispatch({type:ADD}))
-minus.addEventListener("click",()=> countStore.dispatch({type:MINUS}))
+form.addEventListener("submit",onSubmit)
